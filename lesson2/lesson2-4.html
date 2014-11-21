@@ -1,0 +1,36 @@
+<!doctype html> 
+<html>
+	<head>
+		<title>augnular 权威指南 测试版本1.2.26</title>
+		<link rel="stylesheet" href="/docs/components/bootstrap-3.1.1/css/bootstrap.css">
+	</head>
+	<style>
+	input.ng-invalid { 
+	 border: 1px solid red; 
+	} 
+	input.ng-valid { 
+	 border: 1px solid green; 
+	} 
+	</style>
+	<body>
+		<div ng-app ='myApp'>
+				<h1> 表单验证 </h1>
+				<div ng-controller='MyController'>
+					<form action="javascript:;" name='form' >
+						<lable name="email">邮箱</lable>
+						<input type="text" ng-model="email" name='email' placeholder='Email Address' required>
+					</form>
+				</div>
+				
+		</div>
+	</body>
+	<!-- js文件应该独立出来 -->
+	<script src='/angular.js'></script>
+	<script>
+	var app = angular.module('myApp', []);
+	app.controller('MyController',function($scope) {
+
+	});
+
+	</script>
+</html>

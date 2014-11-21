@@ -1,0 +1,32 @@
+<!doctype html> 
+<html ng-app='myApp'>
+    <head>
+        <title>augnular 权威指南 测试版本1.2.26 - 指令</title>
+        <link rel="stylesheet" href="/docs/components/bootstrap-3.1.1/css/bootstrap.css">
+    </head>
+    <body>
+        <!--自定义指令-->
+        <div my-directive some-attr='http://www.baidu.com' my-link-text="Click me!" my-title='{{ "点" + "我!"}}' >
+
+        </div>
+    </body>
+    <!-- js文件应该独立出来 -->
+    <script src='/angular.js'></script>
+    <script>
+    angular.module('myApp',[])
+    .directive('myDirective', function(){
+        return {
+            restrict: 'A',
+            //replace: true, //删除 <my-directive> 标签
+            template: '<a title={{myTitle}} href="{{myUrl}}">{{myLinkText}}</a> ',
+            //创建一个干净的 scope 
+            //通过获取 指令其他元素 的属性名 绑定其他数据模型 解析 并放置到 view中
+            scope: {
+                myUrl:'@someAttr', //不同元素名
+                myLinkText:'@',      //相同元素名
+                myTitle:'@'   //表达式传递
+            }
+        };
+    });
+    </script>
+</html>

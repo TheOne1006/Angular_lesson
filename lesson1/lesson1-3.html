@@ -1,0 +1,25 @@
+<!doctype html> 
+<html>
+	<head>
+		<title>augnular 权威指南 测试版本1.2.26</title>
+	</head>
+	<body>
+		<div ng-app ='myApp'>
+		<h1>HELLO {{name}} 全局的name</h1>
+		<div ng-controller='MyController'>
+			<h2>HELLO {{name}}</h2>
+		</div>
+		</div>
+	</body>
+	<!-- js文件应该独立出来 -->
+	<script src='/angular.js'></script>
+	<script>
+	angular.module('myApp',[])
+	.run(function($rootScope) {
+		$rootScope.name = 'World!';
+	}).controller('MyController',function($scope){
+		//通过控制器MyController 创建出来的作用域$scope 
+		$scope.name = 'Ari';
+	});
+	</script>
+</html>

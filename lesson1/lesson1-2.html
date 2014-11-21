@@ -1,0 +1,32 @@
+<!doctype html> 
+<html ng-app>
+<!--ng-app 指定angular的作用域-->
+	<head>
+		<title>augnular 权威指南 测试版本1.2.26</title>
+	</head>
+	<body>
+		<!-- ng-controller 生成控制器 -->
+		<div ng-controller="MyController">
+		<input type="text" ng-model="person.name" type='text' placeholder='your name' />
+		<h1>HELLO {{person.name}}</h1>
+			<h5>{{clock}}</h5>
+		</div>
+	</body>
+	<!-- js文件应该独立出来 -->
+	<script src='/angular.js'></script>
+	<script>
+	//控制器 信息 定义到了 全局命名中
+	function MyController ($scope, $timeout) {
+		$scope.clock = {
+			now: new Date()
+		};
+		var updateClock = function() {
+			$scope.clock.now = new Date();
+		};
+		setInterval(function() {
+			$scope.$apply(updateClock);
+		},1000);
+		updateClock();
+	}
+	</script>
+</html>

@@ -1,0 +1,100 @@
+<!doctype html> 
+<html ng-app='myApp'>
+    <head>
+        <title>指令- ng-内置指令</title>
+        <meta name='description' content='augnular 权威指南 测试版本1.2.26'>
+        <link rel="stylesheet" href="/docs/components/bootstrap-3.1.1/css/bootstrap.css">
+
+        <!-- js文件应该独立出来 并放在document 后面 -->
+        <script src='/angular.js'></script>
+        <script>
+        var app = angular.module('myApp',[]);
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="page-header">
+                <h1>ng-内置指令</h1>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">指令名</div>
+                <div class="col-md-8">案例描述</div>
+            </div>
+            <hr/>
+            <div class="row">
+                <div class="col-md-4">ng-disabled / ng-readonly</div>
+                <div class="col-md-4">
+                    <input type="text" ng-model='somePerPerty' placeholder='不输入就不能提交'>
+                    <button class='btn default-btn' ng-model='buton' ng-disabled='!somePerPerty'>输入</button>
+                </div>
+                <div class="col-md-4">
+                    <textarea ng-disabled='isDisabled'>等五秒</textarea>
+                    <script>
+                    //五秒后解封
+                        app.run(function($rootScope,$timeout){
+                            $rootScope.isDisabled = true;
+                            $timeout(function(){
+                                $rootScope.isDisabled = false;
+                            },3000);
+                        });
+                    </script>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-4">ng-checked</div>
+                <div class="col-md-4">
+                    <label>someProperty = {{someProperty}}</label> 
+                    <input type="checkbox" 
+                     ng-checked="someProperty" 
+                     ng-init="someProperty = true" 
+                     ng-model="someProperty"> 
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">ng-selected</div>
+                <div class="col-md-4">
+                    <lable>选择的我的：</lable>
+                    <input type="checkbox" ng-model="isMySelect" />
+                    <sapn>|</sapn>
+                    <select>
+                        <option > 他的</option>
+                        <option ng-selected='isMySelect'>我的</option>
+                        <option > 谁的</option>
+                    </select>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-4">ng-href</div>
+                <div class="col-md-4">
+                    <a ng-href="{{myHref}}">点后延迟2s触发</a>
+                </div>
+                <script>
+                app.run(function($rootScope, $timeout){
+                    //表达式没生成之前 没有 href 属性
+                    $timeout(function(){
+                        $rootScope.myHref = 'http://www.baidu.com';
+                    },2000);
+                });
+                </script>
+                <div class="col-md-4">表达式没生效之前，不会加载href属性</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">ng-src</div>
+                <div class="col-md-4">
+                    <img ng-src="{{imgSrc}}" height="80px;" />
+                </div>
+                <script>
+                app.run(function($rootScope, $timeout){
+                    $timeout(function(){
+                        $rootScope.imgSrc = '/app/lesson4/google.png';
+                    },2000);
+                });
+                </script>
+            </div>
+
+        </div>
+    </body>
+</html>

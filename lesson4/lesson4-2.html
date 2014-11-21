@@ -1,0 +1,60 @@
+<!doctype html> 
+<html ng-app='myApp'>
+    <head>
+        <title>指令- 的作用域</title>
+        <meta name='description' content='augnular 权威指南 测试版本1.2.26'>
+        <link rel="stylesheet" href="/docs/components/bootstrap-3.1.1/css/bootstrap.css">
+
+        <!-- js文件应该独立出来 并放在document 后面 -->
+        <script src='/angular.js'></script>
+        <script>
+        var app = angular.module('myApp',[]);
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="page-header">
+                <h1>ng-内置指令</h1>
+            </div>
+            <div class='row'>
+                <div class="col-md-12">
+                    <div ng-controller='someController'>
+                        {{someBareValue}}
+                        {{someObject.value}}
+                        <button ng-click="someAction()">
+                            与子级交流
+                        </button>
+                        <div ng-controller="childController">
+                            {{someBareValue}}
+                            {{someObject.value}}
+                            <button ng-click='childAction()'>
+                                与父级交流
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </body>
+    <script>
+    app.controller('someController',function($scope){
+        $scope.someBareValue = 'hello Init';
+        //对象之间使用 引用， 个人认为实际没有改变需要去propotype 寻找someObject 的命运 
+        $scope.someObject = {
+            value: '我是一个对象中的属性,init'
+        };
+        $scope.someAction = function(){
+            $scope.someBareValue = 'hello conm form parent';
+            $scope.someObject.value = ' 父级开始改变';
+        };
+    })
+    //由于开始之前 子级$scope上的somBareValue 属性 会去找到父级的someBareValue 但是创建自己的childAction 就不会去 父级上寻找了
+    .controller('childController', function($scope){
+        $scope.childAction = function (){
+            $scope.someBareValue = 'hello come form child';
+            $scope.someObject.value = ' 子级开始改变';
+        };
+    });
+    </script>
+</html>

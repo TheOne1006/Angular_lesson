@@ -1,0 +1,25 @@
+<!doctype html> 
+<html ng-app='myApp'>
+    <head>
+        <title>augnular 权威指南 测试版本1.2.26 - 指令</title>
+        <link rel="stylesheet" href="/docs/components/bootstrap-3.1.1/css/bootstrap.css">
+    </head>
+    <body>
+        <!--自定义指令-->
+        <my-directive>
+
+        </my-directive>
+    </body>
+    <!-- js文件应该独立出来 -->
+    <script src='/angular.js'></script>
+    <script>
+    angular.module('myApp',[])
+    .directive('myDirective', function(){
+        return {
+            restrict: 'E',
+            replace: true, //删除 <my-directive> 标签
+            template: '<a href="www.baidu.com">Click me</a> '
+        };
+    });
+    </script>
+</html>

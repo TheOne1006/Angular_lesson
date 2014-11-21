@@ -1,0 +1,30 @@
+<!doctype html> 
+<html>
+	<head>
+		<title>augnular 权威指南 测试版本1.2.26</title>
+	</head>
+	<body>
+		<div ng-app ='myApp'>
+			<div ng-controller='MyController'>
+				<h1>最简单的加减法</h1>
+				<button ng-click='add(1)' class='button'>加法</button>
+				<a href="javascript:;" ng-click='substract(1)' class='button alert'>
+					减法
+				</a>
+				<h3> 值:{{counter}}</h3>
+			</div>
+		</div>
+	</body>
+	<!-- js文件应该独立出来 -->
+	<script src='/angular.js'></script>
+	<script>
+	//控制器初始完毕后 将 方法 和属性传递到 对应 的视图中
+	angular.module('myApp',[])
+	.controller('MyController',function ($scope){
+		//在 视图 ng-controller='MyController' 的子元素中 能够找到$scope 的对象属性
+		$scope.counter = 0;
+		$scope.add = function (amount) { $scope.counter +=amount; };
+		$scope.substract = function (amount) { $scope.counter -=amount; };
+	} );
+	</script>
+</html>
