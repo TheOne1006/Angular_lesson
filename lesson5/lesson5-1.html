@@ -1,0 +1,56 @@
+<!doctype html> 
+<html ng-app='myApp'>
+    <head>
+        <title>路由 - ngRoute</title>
+        <meta name='description' content='augnular 权威指南 学习版本1.2.26'>
+        <link rel="stylesheet" href="/angular/docs/components/bootstrap-3.1.1/css/bootstrap.css">
+
+        <script src='../../angular.js'></script>
+        <script src='../../angular-route.js'></script>
+        <script>
+        var app = angular.module('myApp',['ngRoute']);
+        app.config(['$routeProvider', function ($routeProvider) {
+            $routeProvider
+                .when('/',{
+                    templateUrl:'view/home.html'
+                })
+                // index/all
+                .when('/inbox/:name',{ // 路径转化为 {name: all}
+                    template: 'IS Template' 
+                })
+                //默认，以及找不到匹配的 #路径
+                .otherwise({redirectTo:'/'});
+        }]).run(['$location',function($location){
+            // 输出 $location 
+            console.log($location);
+            // 输出当前路径
+            console.log($location.path());
+            // 获取编码后完整的url
+            console.log($location.absUrl());
+            // 获取hash 片段
+            console.log($location.hash());
+            // 获取当前URL  主机 
+            console.log($location.host());
+            // 获取端口
+            console.log($location.port());
+            // 获取 当前URL 协议
+            console.log($location.protocol());
+        }]);
+        </script>
+
+    </head>
+    <body>
+        <header>
+            <h1>HEAD</h1>
+        </header>
+        <div class="content">
+            <div ng-view></div>
+        </div>
+        <footer>
+            <h5>FOOT</h5>
+        </footer>
+    </body>
+    <script>
+
+    </script>
+</html>

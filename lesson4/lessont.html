@@ -1,0 +1,31 @@
+<!doctype html> 
+<html ng-app='myApp'>
+    <head>
+        <meta name='description' content='augnular 版本1.2.26'>
+        <script src='/angular.js'></script>
+        <script>
+       // var app = angular.module('myApp',[]);
+        </script>
+    </head>
+    <body>
+
+  <div my-directive  my-link-text="Click me!" >
+    {{myLinkText}}
+  <div>
+
+  <script>
+    angular.module('myApp', [])
+    .directive('myDirective', function() {
+      return {
+        restrict: 'A',
+        template:'<span>{{myLinkText}}</span>',
+        scope: {
+            myLinkText:'@',
+        }
+      };
+    });
+
+    </script>
+    </body>
+
+</html>
