@@ -1,0 +1,12 @@
+{
+  "name": "angular1.3.17",
+  "_cacheHeaders": {
+    "Last-Modified": "Wed, 08 Jul 2015 13:32:34 GMT",
+    "Content-Length": "966351",
+    "Content-Type": "application/x-javascript"
+  },
+  "main": "index.js",
+  "_source": "http://cdn.bootcss.com/angular.js/1.3.17/angular.js",
+  "_target": "*",
+  "_originalSource": "http://cdn.bootcss.com/angular.js/1.3.17/angular.js"
+}

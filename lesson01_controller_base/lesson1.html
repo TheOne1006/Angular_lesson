@@ -1,0 +1,35 @@
+<!doctype html> 
+<html ng-app='app'>
+<!--ng-app 指定angular的作用域-->
+    <head>
+    <title>augular 权威指南 </title>
+    </head>
+    <body>
+        <!-- ng-controller 生成控制器 -->
+        <div ng-controller="MyController">
+            <input type="text" ng-model="person.name" type='text' placeholder='your name' />
+            <h1>HELLO {{person.name}}</h1>
+            	<h5>{{clock}}</h5>
+        </div>
+    </body>
+    <!-- js文件应该独立出来 -->
+    <script src='/components/angular/angular.js'></script>
+    <!-- <script src='/components/angular1.2.28/index.js'></script> -->
+    <script>
+    // 通过创建出来的一个模块
+    var app = angular.module('app',[]);
+    // 通过模块创建一个控制器
+    app.controller('MyController',MyController);
+    
+    // 控制器fn
+    function MyController ($scope, $timeout) {
+        var updateClock = function(){
+            $scope.clock = new Date();
+            $timeout(function(){
+                updateClock();
+            },1000);
+        };
+        updateClock();
+    }
+    </script>
+</html>

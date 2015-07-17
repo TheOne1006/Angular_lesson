@@ -1,5 +1,5 @@
 <!doctype html> 
-<html ng-app>
+<html ng-app ='app'>
 <!--ng-app 指定angular的作用域-->
 	<head>
 		<title>augnular 权威指南 测试版本1.2.26</title>
@@ -13,8 +13,12 @@
 		</div>
 	</body>
 	<!-- js文件应该独立出来 -->
-	<script src='/angular.js'></script>
+	<script src='../components/angular/angular.js'></script>
 	<script>
+	// 通过创建出来的一个模块
+	var app = angular.module('app',[]);
+	// 通过模块创建一个控制器
+	app.controller('MyController',MyController);
 	//控制器 信息 定义到了 全局命名中
 	function MyController ($scope, $timeout) {
 		$scope.clock = {

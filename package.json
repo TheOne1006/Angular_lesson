@@ -1,0 +1,18 @@
+{
+  "name": "Angular_lesson",
+  "version": "0.0.1",
+  "description": "angularJs权威手册_练习",
+  "main": "index.js",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TheOne1006/Angular_lesson.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TheOne1006/Angular_lesson/issues"
+  },
+  "homepage": "https://github.com/TheOne1006/Angular_lesson"
+}
