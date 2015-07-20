@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>angular 过滤器</title>
+</head>
+<body ng-app="app">
+    <div class="container">
+        <h1>Angular 过滤器(内置过滤器)</h1>
+        <div ng-controller="MyController">
+            <h5> 内置filter 模板绑定符号中使用</h5>
+            <ul>
+                <li>
+                    货币currency　{{ money | currency:'￥' }}
+                </li>
+                <li>
+                    日期date 默认内置格式'mediumDate'
+                    <ol>
+                        <li> medium : {{ today | date:'medium'}} </li>
+                        <li> short: {{ today | date:'short' }} </li>
+                        <li> fullDate: {{ today | date:'fullDate' }} </li>
+                        <li> longDate: {{ today |date:'longDate' }}</li>
+                        <li> mediumDate: {{ today | date:'mediumDate' }}</li>
+                        <li> shortDate: {{ today | date:'shortDate' }}</li>
+                        <li> mediumTime: {{ today | date:'mediumTime' }}</li>
+                        <li> shortTime: {{ today | date: 'shortTime' }}</li>
+
+                        <li> 自定义:{{ today | date:' yyyy-M-dd HH:mm:ss' }}</li>
+                    </ol>
+                </li>
+                <li>
+                    'filter'过滤器: 从数组中,选择过滤子集，并返回新数组.
+                    filter第一个参数可以是字符串\对象\数组
+                    <ol>
+                        <li> 字符串: {{ filterArr | filter:'e' }} </li>
+                        <li> 对象( 注意keyName ): {{ filterObjArr | filter:{'age':18} }} </li>
+                        <li> 
+                            函数($scope作用域, 根据return判断): {{ filterArr | filter: isCapitalized }}
+                        </li>
+                        <li>
+                            函数方式接受第二个参数, true/false/fun
+                        </li>
+                        </ol>
+                    </li>
+                    <li>json (将json或js对象转换成字符串) : {{ filterObj | json }} </li>
+                    <li>
+                        limit (截取字符串或数组):{{ filterString | limitTo:3 }}
+                    </li>
+                    <li>
+                        lowercase(转小写): {{ filterString | lowercase }} /
+                        uppercase( 转大写): {{ filterString | uppercase }}
+                    </li>
+                    <li>
+                        number(数字格式化): {{ '123456.1111' | number:2 }}
+                    </li>
+                    <li>
+                        order(排序,arg1 fn,arr, str ):{{ filterArr | orderBy:'-'}}
+                    </li>
+
+            </ul>
+        </div>
+
+    </div>
+</body>
+</html>
+<script src='/components/angular/angular.js'></script>
+<script>
+    var app = angular.module('app',[]);
+    app.controller( 'MyController' ,[ '$scope' , '$parse' , function( $scope, $parse ) {
+        $scope.money = '1000';
+        $scope.today = Date.now();
+
+        $scope.filterArr = ['Ari', 'Leer', 'setant', 'move'];
+        $scope.filterObjArr = [{
+            name: 'Ari',
+            age:'18',
+            city:'beijing'
+        },{
+            name:'Han',
+            sex:'M',
+            city:'shanghai'
+        }];
+        $scope.filterObj = {
+            name:'TheOne',
+            key:'map'
+        };
+
+        $scope.filterString ='Today is Monday';
+
+        $scope.isCapitalized = function (str) {
+            return str[0] === str[0].toUpperCase();
+        };
+    }]);
+</script>

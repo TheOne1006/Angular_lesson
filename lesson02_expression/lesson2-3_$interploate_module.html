@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>angular 表达式</title>
+</head>
+<body ng-app="app">
+    <div class="container">
+        <h1>Angular demo</h1>
+        <ul>
+            <li>
+                通过$interpolaterProvider 修改起始和结束标识符
+            </li>
+        </ul>
+        <hr>
+        <div ng-controller="EmailController">
+            <h5>通过module 生成</h5>
+            To: <input type="text" ng-model='to' /><br />
+            emailBody: <textarea ng-model='emailBody'></textarea><br/> 
+            <div>
+                preView:
+                <pre> __ previewText __ </pre>
+            </div>
+
+        </div>
+
+    </div>
+</body>
+</html>
+<script src='/components/angular/angular.js'></script>
+<script>
+    // 创建新模块 emailParser
+    angular
+    .module('emailParser',[])
+    .config(['$interpolateProvider',function( $interpolateProvider) {
+        // 修改开始符号,结束符号
+        $interpolateProvider.startSymbol('__');
+        $interpolateProvider.endSymbol('__');
+    }])
+    .factory('EmailParser', ['$interpolate', function( $interpolate ){
+        return {
+            parse: function(  text, content) {
+                    var template = $interpolate( text );
+                    return template( content );
+            }
+        };
+    }]);
+
+    // 构造新module 注入依赖
+    angular
+    .module('app',['emailParser'])
+    .controller( 'EmailController',['$scope', 'EmailParser', function($scope, EmailParser){
+        // 初始化
+        $scope.to = 'theone12138@theone.io';
+        $scope.emailBody = ' hi, __ to __ , \n My name is hanmeimei ';
+        $scope.$watch('emailBody', function( newVal) {
+            if( newVal ) {
+                    $scope.previewText = EmailParser.parse(newVal, {to:$scope.to});
+            }
+        });
+    }]);
+
+
+
+</script>

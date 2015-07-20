@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>angular 表达式</title>
+</head>
+<body ng-app="app">
+    <div class="container">
+        <h1>Angular 插值字符串</h1>
+        <ul>
+            <li>
+                解析模板字符串
+            </li>
+            <li>
+                通过$interpolaterProvider 修改起始和结束标识符
+            </li>
+        </ul>
+        <div ng-controller="MyController">
+            <h5>$interpolate[服务]解析字符串</h5>
+            解析字符串:
+            <br />
+            to:
+            <input type="text" ng-model='to'>
+            <br />
+            email: 
+            <textarea ng-model='emailBody'></textarea>
+            <br />
+            show:
+            <pre>
+                {{previewText}}
+            </pre>
+        </div>
+    </div>
+</body>
+</html>
+<script src='/components/angular/angular.js'></script>
+<script>
+    angular
+    .module('app',[])
+    .controller('MyController', ['$scope','$interpolate', function($scope, $interpolate) {
+        // 初始化
+        $scope.to = 'theone@theone.io';
+        $scope.emailBody = ' hello {{to}}, See you!';
+
+        // 设置监听
+        $scope.$watch('emailBody', function( newVal, oldVal ) {
+            if( newVal ) {
+                    // 使用
+                    var template = $interpolate( newVal );
+                    $scope.previewText = template({to: $scope.to});
+            }
+        });
+    }]);
+
+</script>
