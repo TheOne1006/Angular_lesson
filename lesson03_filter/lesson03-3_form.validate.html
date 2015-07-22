@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>angular 过滤器</title>
+    <style>
+        .err {
+            color: #f00;
+        }
+
+        .ng-valid {
+            border: 1px solid green;
+        }
+        .ng-invalid {
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body ng-app="app">
+    <div class="container">
+        <h1>Angular 表单验证</h1>
+        <ul>
+            <li> 客户端验证提供表单状态的实时反馈 </li>
+            <li> 屏蔽流量浏览器默认验证行为,form 元素添加 novalidate 指令 </li>
+            <li> 去报表单上有一个 name属性,存在ng-model </li>
+            <li>
+                指令
+                <ol>
+                    <li>指令: required 必填</li>
+                    <li>指令: ng-minlength='num'/ng-maxlength='num'(最小/大长度)</li>
+                    <li>指令: ng-pattern='正则' </li>
+                </ol>
+            </li>
+            <li>
+                type
+                <ol>
+                    <li> 邮箱验证: type='email' </li>
+                    <li> 数字验证: type='number'</li>
+                    <li> URL: type='url'</li>
+                </ol>
+            </li>
+
+            <li>
+                表单的变量控制
+                <ol>
+                    <li>未修改表单: formName.inputFieldName.$pristine</li>
+                    <li>修改过表单: formName.inputFieldName.$dirty</li>
+                    <li>合法的表单: formName.inputFieldName.$valid</li>
+                    <li>不合法表单: formName.inputFieldName.$invalid</li>
+                    <li>错误: formName.inputFieldName.$error</li>
+                </ol>
+            </li>
+
+            <li>
+                css
+                <ol>
+                    <li>.ng-pristine</li>
+                    <li>.ng-dirty</li>
+                    <li>.ng-valid</li>
+                    <li>.ng-invalid</li>
+                </ol>
+            </li>
+
+        </ul>
+        <div>
+            <form name='myform'>
+                <fieldset>
+                    <legend>指令</legend>
+                    必填项:<input name='requ' type="text" required ng-model='myreq' />
+                    <span class='err' ng-show='myform.requ.$dirty && myform.requ.$error.required'>必填</span>
+                    <span ng-show='myform.requ.$pristine'>
+                        未修改
+                    </span>
+                    <span ng-show='myform.requ.$dirty'>
+                        修改过{{$dirty}}
+                    </span>
+                    <span ng-show='myform.requ.$valid'>
+                        合法表单
+                    </span>
+                    <span ng-show='myform.requ.$invalid'>
+                        不合法表单
+                    </span>
+                    <span ng-show='myform.requ.$error'>
+                        {{myform.requ.$error | json}}
+                    </span>
+                    <br />
+
+                    长度限制: <input name='leng' type="text" ng-minlength='3' ng-maxlength='5' ng-model='leng'/>
+                    <span class="err" ng-show='myform.leng.$dirty && (myform.leng.$error.minlength || myform.leng.$error.maxlength)'>
+                        长度必须大于3小于５
+                    </span>
+                    <br />
+
+                    正则匹配: <input type="text" name='mypattern' ng-pattern='/[a-zA-Z]/' ng-model='mypattern' />
+                    <span class="err" ng-show='myform.mypattern.$dirty && (myform.mypattern.$error.pattern)'>
+                    格式不正确
+                    </span>
+                </fieldset>
+
+                <fieldset>
+                    <legend>type</legend>
+                    邮箱: <input type="email" name='email' ng-model='user.email' />
+                    <span class="err" ng-show='myform.email.$dirty && myform.email.$error'>
+                        请正确填写邮箱
+                    </span>
+                </fieldset>
+
+                <fieldset>
+                    <input type="submit">
+                </fieldset>
+            </form>
+
+        </div>
+
+    </div>
+</body>
+</html>
+<script src='/components/angular/angular.js'></script>
+<script>
+    var app = angular.module('app',[]);
+
+</script>
