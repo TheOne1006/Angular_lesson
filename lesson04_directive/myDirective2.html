@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <title>angular指令</title>
+    </head>
+    <body ng-app="app">
+        <div class="container">
+            <h1>向指令中传递数据</h1>
+            <h3>案例一:</h3>
+            <div my-directive my-url='http://www.theone.io' my-link-text='THEONE'></div>
+            <hr>
+            <h3>案例二: 隔离作用域</h3>
+            <ul>
+                <li>虽然ng-controller 可以控制作用域,但是耦合度太高,不便与directive 结合</li>
+            </ul>
+            <div my-directive-b my-url='http://www.theone.io' link-text='THEONE'></div>
+            <h3>案例三: 综合案例</h3>
+            <div>
+                <input type="text" ng-model="thisInput">
+                <div my-directive-c my-text='thisInput'></div>
+            </div>
+
+        </div>
+    </body>
+</html>
+<script src='/components/angular/angular.js'></script>
+<script>
+    var app = angular.module('app',[]);
+
+    // myUrl 和 myLinkText 称为指令内部的作用域的属性
+    app.directive('myDirective', function(){
+        return {
+            restrict:'A',
+            replace:true,
+            template:'<a href="{{ myUrl }}">{{myLinkText}}</a>'
+        };
+    });
+    
+
+    app.directive('myDirectiveB', function(){
+        return {
+            restrict:'A',
+            /**
+             * 将dom中的对应属性,绑定到当前scope 下
+             * 可以指定需要绑定的属性名称
+             */
+            scope:{
+                myUrl:'@',
+                myLinkText:'@linkText'
+            },
+            replace:true,
+            template:'<a href="{{ myUrl }}">{{myLinkText}}</a>'
+        };
+    });
+
+    app.directive('myDirectiveC', function(){
+        return {
+            restrict:'A',
+            scope:{
+                testIn:'=myText'
+            },
+            replace:true,
+            template:'<p>__内容: {{testIn}} __</p>'
+        };
+    });
+
+    
+</script>

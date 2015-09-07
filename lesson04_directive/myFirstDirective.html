@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <title>angular指令</title>
+    </head>
+    <body ng-app="app">
+        <div class="container">
+            <h1>Angular 指令 - 初见</h1>
+            <h3>我们的第一个指令:my-directive</h3>
+            <my-directive>
+            </my-directive>
+            <hr/>
+            <h3>指令声明方法:</h3>
+            <ul>
+                <li>元素E(element)</li>
+                <li>属性(Attribute)-较好的跨浏览器兼容性</li>
+                <li>class</li>
+                <li>注释</li>
+            </ul>
+            <h5>作用域:</h5>
+            <ul>
+                <li>作用类似于原型链</li>
+            </ul>
+        </div>
+    </body>
+</html>
+<script src='/components/angular/angular.js'></script>
+<script>
+    var app = angular.module('app', []);
+    app.directive('myDirective', function(){
+        return {
+            restrict:'E',
+            replace:true,
+            template:'<a href="http://www.baidu.com">click me  goto theone.io</a>'
+        };
+    });
+    
+</script>
